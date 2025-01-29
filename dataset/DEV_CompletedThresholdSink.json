@@ -1,0 +1,18 @@
+{
+	"name": "DEV_CompletedThresholdSink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_DataFactory_Storage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "DEV/CompletedThreshold",
+				"container": "to-nextly"
+			}
+		}
+	}
+}

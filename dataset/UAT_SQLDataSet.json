@@ -1,0 +1,143 @@
+{
+	"name": "UAT_SQLDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_BusinessDataUAT",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Name",
+				"type": "varchar"
+			},
+			{
+				"name": "StartDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "EndDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Status",
+				"type": "varchar"
+			},
+			{
+				"name": "ContentType",
+				"type": "varchar"
+			},
+			{
+				"name": "ContentLocation",
+				"type": "varchar"
+			},
+			{
+				"name": "Content",
+				"type": "varchar"
+			},
+			{
+				"name": "Start/Stop",
+				"type": "bit"
+			},
+			{
+				"name": "CampaignViewFor",
+				"type": "varchar"
+			},
+			{
+				"name": "OtherOption",
+				"type": "bit"
+			},
+			{
+				"name": "RedirectPage",
+				"type": "varchar"
+			},
+			{
+				"name": "RedirectURL",
+				"type": "varchar"
+			},
+			{
+				"name": "LaterOption",
+				"type": "varchar"
+			},
+			{
+				"name": "IntegrationWith",
+				"type": "varchar"
+			},
+			{
+				"name": "SocialMediaTitle",
+				"type": "varchar"
+			},
+			{
+				"name": "SocialMediaContent",
+				"type": "varchar"
+			},
+			{
+				"name": "CreatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "CreatedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "ModifiedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "IsDelete",
+				"type": "bit"
+			},
+			{
+				"name": "Priority",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Keywords",
+				"type": "varchar"
+			},
+			{
+				"name": "ExcelGUID",
+				"type": "varchar"
+			},
+			{
+				"name": "Location",
+				"type": "varchar"
+			},
+			{
+				"name": "CampaignType",
+				"type": "varchar"
+			},
+			{
+				"name": "NoTrueExit",
+				"type": "bit"
+			},
+			{
+				"name": "CampaignTypeExit",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "AdminCampaign"
+		}
+	}
+}

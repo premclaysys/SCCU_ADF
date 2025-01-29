@@ -1,0 +1,32 @@
+{
+	"name": "UAT_BBAlertsDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_BBAlertsUAT",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Key",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Value",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "ExpireAt",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "schedule",
+			"table": "AggregatedCounter"
+		}
+	}
+}

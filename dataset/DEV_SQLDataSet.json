@@ -1,0 +1,31 @@
+{
+	"name": "DEV_SQLDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_BusinessDataDev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ActivitylogId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "AdditionalInfo",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "Adaptive",
+			"table": "ActivitylogAdditionalInfo"
+		}
+	}
+}

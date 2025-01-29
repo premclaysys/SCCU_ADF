@@ -1,0 +1,35 @@
+{
+	"name": "UAT_TransactionSinkDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_BusinessDataUAT",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SubscriptionID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EmailContent",
+				"type": "varchar"
+			},
+			{
+				"name": "TextContent",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ExternalAlert_TransactionStaging"
+		}
+	}
+}

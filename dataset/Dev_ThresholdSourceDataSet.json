@@ -1,0 +1,39 @@
+{
+	"name": "Dev_ThresholdSourceDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_DataFactory_Storage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"ThresholdFilename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+
+				"fileName": {
+					"value": "@dataset().ThresholdFilename",
+					"type": "Expression"
+				},
+
+				"folderPath": "DEV/ThresholdAlerts",
+				"container": "to-nextly"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": [
+			{
+				"name": "SubscriptionID|BalanceAmount",
+				"type": "String"
+			}
+		]
+	}
+}

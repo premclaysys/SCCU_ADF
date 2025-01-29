@@ -1,0 +1,31 @@
+{
+	"name": "Dev_ThresholdSinkDastaSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_BusinessDataDev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SubscriptionID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "BalanceAmount",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ExternalAlert_ThresholdStaging"
+		}
+	}
+}

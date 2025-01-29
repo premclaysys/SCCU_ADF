@@ -1,0 +1,25 @@
+{
+	"name": "DEV_BBAlertsDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_BBAlertsDev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "MigrationId",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ProductVersion",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "__EFMigrationsHistory"
+		}
+	}
+}
