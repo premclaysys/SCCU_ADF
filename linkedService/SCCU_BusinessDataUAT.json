@@ -1,0 +1,22 @@
+{
+	"name": "SCCU_BusinessDataUAT",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "sccuuatsql01.database.windows.net",
+			"database": "SCCU_BusinessData_UAT",
+			"encrypt": "optional",
+			"trustServerCertificate": false,
+			"authenticationType": "UserAssignedManagedIdentity",
+			"credential": {
+				"referenceName": "Credential_SCCU_BusinessDataUAT",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

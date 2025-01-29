@@ -1,0 +1,22 @@
+{
+	"name": "SCCU_Metadb_PROD",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlMI",
+		"typeProperties": {
+			"server": "sccusqlmi.247d28acc382.database.windows.net",
+			"database": "SCCU_Metadb_PROD",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "UserAssignedManagedIdentity",
+			"credential": {
+				"referenceName": "Credential_SCCU_Metadb_PROD",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

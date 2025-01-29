@@ -1,0 +1,21 @@
+{
+	"name": "SCCU_OfflineModedb_PROD_DTU",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sccuprodsqldtu.database.windows.net;Initial Catalog=SCCU_OfflineModedb_PROD",
+			"credential": {
+				"referenceName": "Credential_Prod_DTU",
+				"type": "CredentialReference"
+			},
+			"alwaysEncryptedSettings": {
+				"alwaysEncryptedAkvAuthType": "ManagedIdentity"
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

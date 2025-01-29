@@ -1,0 +1,17 @@
+{
+	"name": "SCCU_DataFactory_FileShare",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureFileStorage",
+		"typeProperties": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=sccudatafactorystorage;EndpointSuffix=core.windows.net;",
+			"fileShare": "sccudatafactoryfileshare",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDYxQjhDQjg5LUE5MDgtNDc4NS04ODhDLTdEOEFENzAzQTY4MV81ODhlZjdhMS1mNTBhLTQ5Y2QtYTU4NS00Njc1MDNhNTAzNzgiDQp9"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
