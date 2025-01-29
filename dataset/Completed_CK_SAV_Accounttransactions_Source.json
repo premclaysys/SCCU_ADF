@@ -1,0 +1,21 @@
+{
+	"name": "Completed_CK_SAV_Accounttransactions_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_DataFactory_Storage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "OfflineServices_DataSets/Completed/Source"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "PROD/CK_SAV_Accounttransactions",
+				"container": "offline-services"
+			}
+		}
+	}
+}

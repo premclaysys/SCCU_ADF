@@ -1,0 +1,35 @@
+{
+	"name": "Prod_LoanDueAlertsSinkDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_BusinessDataPROD",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "SubscriptionID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "DueDate",
+				"type": "date"
+			},
+			{
+				"name": "AmountDue",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "External_LoanDueAlertStaging"
+		}
+	}
+}

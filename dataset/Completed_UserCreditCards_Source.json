@@ -1,0 +1,21 @@
+{
+	"name": "Completed_UserCreditCards_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_DataFactory_Storage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "OfflineServices_DataSets/Completed/Source"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "PROD/UserCreditCards",
+				"container": "offline-services"
+			}
+		}
+	}
+}

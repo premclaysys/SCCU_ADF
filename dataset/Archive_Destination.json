@@ -1,0 +1,81 @@
+{
+	"name": "Archive_Destination",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_Archivedb_PROD_DTU",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"DestinationTable": {
+				"type": "string"
+			},
+			"DestinationSchema": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "DataRetentionDatasets/Dynamic"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ErrorID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TenantID",
+				"type": "varchar"
+			},
+			{
+				"name": "FormID",
+				"type": "varchar"
+			},
+			{
+				"name": "SystemIP",
+				"type": "varchar"
+			},
+			{
+				"name": "SiteURL",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Type",
+				"type": "varchar"
+			},
+			{
+				"name": "Message",
+				"type": "nvarchar"
+			},
+			{
+				"name": "InnerException",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CreatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "CreatedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Comments",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().DestinationSchema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().DestinationTable",
+				"type": "Expression"
+			}
+		}
+	}
+}

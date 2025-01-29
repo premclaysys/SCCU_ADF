@@ -1,0 +1,21 @@
+{
+	"name": "Completed_NextlyLoanTransactions_Sink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_DataFactory_Storage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "OfflineServices_DataSets/Completed/Destination"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "PROD/COMPLETED/Completed_NextlyLoanTransactions",
+				"container": "offline-services"
+			}
+		}
+	}
+}

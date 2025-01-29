@@ -1,0 +1,190 @@
+{
+	"name": "OfflineDestination_CK_SAV_Accounttransactions",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_OfflineModedb_PROD_DTU",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "OfflineServices_DataSets/Destination"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "AccountNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "CurrentBalance",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "BalanceCategoryCodeEscrow",
+				"type": "varchar"
+			},
+			{
+				"name": "CurrentBalanceEscrow",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "BalanceCategoryCodeUnapplied",
+				"type": "varchar"
+			},
+			{
+				"name": "CurrentBalanceUnapplied",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "BalanceCategoryCodeLoanInProcess",
+				"type": "varchar"
+			},
+			{
+				"name": "CurrentBalanceLoanInProcess",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "NextPaymentDueDate",
+				"type": "date"
+			},
+			{
+				"name": "CurrentDueDate",
+				"type": "date"
+			},
+			{
+				"name": "LastPaymentDate",
+				"type": "date"
+			},
+			{
+				"name": "LastPaymentAmount",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "CurrentYearInterestPaid",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "RegularPaymentAmount",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "InterestRate",
+				"type": "decimal",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "PriorYearInterestPaid",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "PayoffBalance",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "PayDownBalance",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "PrincipalBalance",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "AmountToPayCurrent",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "TotalPerDiem",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "TotalAmountCurrentlyDue",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "AmountPastDue",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "OriginalLoanAmount",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "CurrentTerm",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "RemainingTerm",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "RemainingPayments",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PaymentCalculationPeriod",
+				"type": "varchar"
+			},
+			{
+				"name": "CreditLimitAmount",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "AvailableCredit",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "OpenDate",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "CK_SAV_Accounttransactions_Staging"
+		}
+	}
+}

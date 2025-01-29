@@ -1,0 +1,21 @@
+{
+	"name": "Completed_CCM_CreditCard_AccountDetails_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_DataFactory_Storage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "OfflineServices_DataSets/Completed/Source"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "PROD/CCM_CreditCard_AccountDetails",
+				"container": "offline-services"
+			}
+		}
+	}
+}

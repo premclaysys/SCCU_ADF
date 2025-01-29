@@ -1,0 +1,34 @@
+{
+	"name": "PROD_MemberActivityDynamicDescriptionValue_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_Businessdata_PROD",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DataRetentionDatasets/static"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "MemberActivityLogID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "ActivityDynamicDescriptionValue",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "MemberActivityDynamicDescriptionValue"
+		}
+	}
+}

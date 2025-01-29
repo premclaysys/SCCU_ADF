@@ -1,0 +1,40 @@
+{
+	"name": "PROD_emulation_Destination",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_Archivedb_PROD_DTU",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DataRetentionDatasets/static"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EmulationActivityLogID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "ActivityDynamicDescriptionValue",
+				"type": "varchar"
+			},
+			{
+				"name": "CreatedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "BusinessData",
+			"table": "EmulationActivityDynamicDescriptionValue"
+		}
+	}
+}

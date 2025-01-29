@@ -1,0 +1,143 @@
+{
+	"name": "ActivityLogsSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_BusinessDataPROD",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "Id",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "DateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "MemberName",
+				"type": "varchar"
+			},
+			{
+				"name": "AccountNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "Module",
+				"type": "varchar"
+			},
+			{
+				"name": "Description",
+				"type": "varchar"
+			},
+			{
+				"name": "Type",
+				"type": "varchar"
+			},
+			{
+				"name": "Guid",
+				"type": "varchar"
+			},
+			{
+				"name": "CreatedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "CreatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "ObjectGUID",
+				"type": "varchar"
+			},
+			{
+				"name": "BrowserVersion",
+				"type": "varchar"
+			},
+			{
+				"name": "IPAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "BrowserName",
+				"type": "varchar"
+			},
+			{
+				"name": "LogEventType",
+				"type": "varchar"
+			},
+			{
+				"name": "SessionID",
+				"type": "varchar"
+			},
+			{
+				"name": "MappingType",
+				"type": "varchar"
+			},
+			{
+				"name": "DeviceID",
+				"type": "varchar"
+			},
+			{
+				"name": "ActionOrService",
+				"type": "varchar"
+			},
+			{
+				"name": "PayeeOrDestinationAccountNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "TransactionAmount",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "SuccessStatus",
+				"type": "varchar"
+			},
+			{
+				"name": "PersonNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "eAgreementNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceAccountNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "CorrelationID",
+				"type": "varchar"
+			},
+			{
+				"name": "PayeeOrDestination",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceOfLogin",
+				"type": "varchar"
+			},
+			{
+				"name": "UserAgentString",
+				"type": "text"
+			},
+			{
+				"name": "IsExcluded",
+				"type": "bit"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "activitylogs"
+		}
+	}
+}

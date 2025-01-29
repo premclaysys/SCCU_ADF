@@ -1,0 +1,35 @@
+{
+	"name": "PRODTransactionSinkDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_BusinessDataPROD",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "SubscriptionID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "EmailContent",
+				"type": "varchar"
+			},
+			{
+				"name": "SMSContent",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ExternalAlert_TransactionStaging"
+		}
+	}
+}
