@@ -1,0 +1,43 @@
+{
+	"name": "PROD_TransferMemberActivityLog_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_Businessdata_PROD",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DataRetentionDatasets/static"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MemberActivityLogID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "PayeeOrDestination",
+				"type": "varchar"
+			},
+			{
+				"name": "TransactionAmount",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "SourceAccountNumber",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "TransferMemberActivityLog"
+		}
+	}
+}

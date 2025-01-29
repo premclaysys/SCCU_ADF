@@ -1,0 +1,84 @@
+{
+	"name": "SCCUPROD_Admin_LogDB_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_AdminLogdb_PROD",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SourceDB": {
+				"type": "string"
+			},
+			"SourceTable": {
+				"type": "string"
+			},
+			"SourceSchema": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "DataRetentionDatasets/Dynamic"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "ErrorID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TenantID",
+				"type": "varchar"
+			},
+			{
+				"name": "FormID",
+				"type": "varchar"
+			},
+			{
+				"name": "SystemIP",
+				"type": "varchar"
+			},
+			{
+				"name": "SiteURL",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Type",
+				"type": "varchar"
+			},
+			{
+				"name": "Message",
+				"type": "nvarchar"
+			},
+			{
+				"name": "InnerException",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CreatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "CreatedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Comments",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().SourceSchema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().SourceTable",
+				"type": "Expression"
+			}
+		}
+	}
+}

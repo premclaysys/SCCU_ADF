@@ -1,0 +1,31 @@
+{
+	"name": "PROD_SQLDataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SCCU_BusinessDataPROD",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "Id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ActivitylogId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "AdditionalInfo",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "Adaptive",
+			"table": "ActivitylogAdditionalInfo"
+		}
+	}
+}
