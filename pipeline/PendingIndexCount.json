@@ -1,0 +1,40 @@
+{
+	"name": "PendingIndexCount",
+	"properties": {
+		"activities": [
+			{
+				"name": "Pending Index count",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlMISource",
+						"sqlReaderQuery": "SELECT count(1)\nFROM sys.dm_db_index_physical_stats (DB_ID(), NULL, NULL, NULL, NULL) AS DDIPS\nINNER JOIN sys.tables T on T.object_id = DDIPS.object_id\nINNER JOIN sys.schemas S on T.schema_id = S.schema_id\nINNER JOIN sys.indexes I ON I.object_id = DDIPS.object_id\nAND DDIPS.index_id = I.index_id\nWHERE DDIPS.database_id = DB_ID()\nand I.name is not null\nand T.name NOT LIKE '%staging%' and T.name NOT LIKE '%archi%' and T.name NOT LIKE '%exceptio%' \nand t.name not in( 'CheckfreeApiSerilog','NextlyThirdPartyLog','ACISeriLogs2','VerafinSeriLogs', 'PayrailzApiSerilog','SccuBeta_ErrorLog')\n--and t.name = 'LoginHistory'\nAND DDIPS.avg_fragmentation_in_percent > 30\nAND DDIPS.page_count>50000",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "SCCUPROD_BusinessData_Source",
+						"type": "DatasetReference",
+						"parameters": {
+							"SourceDB": "SCCU_Businessdata_PROD",
+							"SourceTable": "activityLogs",
+							"SourceSchema": "dbo"
+						}
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataRetention/MISC"
+		},
+		"annotations": []
+	}
+}

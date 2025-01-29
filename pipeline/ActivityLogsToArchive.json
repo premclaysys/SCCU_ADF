@@ -1,0 +1,61 @@
+{
+	"name": "ActivityLogsToArchive",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy ActivityLogs To Archive 11th day",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 3,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlMISource",
+						"sqlReaderQuery": "Select * from activityLogs with (NoLock)\n    WHERE  Cast(datetime as date) = Cast(getdate()-11 as date) ",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ActivityLogsSource",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Archive_Destination",
+						"type": "DatasetReference",
+						"parameters": {
+							"DestinationTable": "ActivityLogs",
+							"DestinationSchema": "BusinessData"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DataRetention/MISC"
+		},
+		"annotations": []
+	}
+}

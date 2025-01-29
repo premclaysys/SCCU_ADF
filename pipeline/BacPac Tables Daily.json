@@ -1,0 +1,112 @@
+{
+	"name": "BacPac Tables Daily",
+	"properties": {
+		"activities": [
+			{
+				"name": "ExternalRequestTxs_BacPac",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_Bacpac_BackUpTables]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SCCU_Logdb_PROD",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_Bacpac_BackUp_NextlyCoreLog",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ExternalRequestTxs_BacPac",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_Bacpac_BackUp_NextlyCoreLog]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SCCU_Logdb_PROD_DTU",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Delete ExternalRequestTxs",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "sp_Bacpac_BackUp_NextlyCoreLog",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_Bacpac_DeleteBackUpTables]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SCCU_Logdb_PROD",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Delete NextlyCoreLog",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Delete ExternalRequestTxs",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_Bacpac_Delete_NextlyCoreLog]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SCCU_Logdb_PROD_DTU",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "DataRetention/BacPac"
+		},
+		"annotations": []
+	}
+}

@@ -1,0 +1,60 @@
+{
+	"name": "SendEmailActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "SendMail",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"headers": {
+						"Authorization": {
+							"value": "@pipeline().globalParameters.EmailKey",
+							"type": "Expression"
+						},
+						"Content-Type": "application/json"
+					},
+					"url": {
+						"value": "@pipeline().globalParameters.global_sendmail_api_url",
+						"type": "Expression"
+					},
+					"connectVia": {
+						"referenceName": "AutoResolveIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"body": {
+						"value": "{\n  \"personalizations\": [\n    {\n      \"to\": [\n        {\n          \"email\": @{pipeline().parameters.recipientEmail}\n        }\n      ],\n      \"subject\":  @{pipeline().parameters.EmailSubject}\n    }\n  ],\n  \"from\": {\n    \"email\": @{pipeline().globalParameters.FromEmail}\n  },\n  \"content\": [\n    {\n      \"type\": \"text/plain\",\n      \"value\": @{pipeline().parameters.EmailBody}\n    }\n  ]\n}\n",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"recipientEmail": {
+				"type": "string",
+				"defaultValue": "prem@claysys.com"
+			},
+			"EmailSubject": {
+				"type": "string",
+				"defaultValue": "Test Email from ADF"
+			},
+			"EmailBody": {
+				"type": "string",
+				"defaultValue": "Test Mail"
+			}
+		},
+		"folder": {
+			"name": "DataRetention/MISC"
+		},
+		"annotations": []
+	}
+}

@@ -1,0 +1,287 @@
+{
+	"name": "PROD_DynamicRetention_Main",
+	"properties": {
+		"description": "This pipeline has activities which archive/purge data from souce DB's to Archive DB ",
+		"activities": [
+			{
+				"name": "Distinct DB",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "BacPac Tables Daily",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT DISTINCT DestinationSchemaName FROM MasterConfig WHERE IsArchiveEnabled=1 OR IsPurgeEnabled=1 ",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "SCCUPROD_ArchiveSqlDataset",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Schemas",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Distinct DB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Distinct DB').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 1,
+					"activities": [
+						{
+							"name": "DbNameSwitch",
+							"type": "Switch",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"on": {
+									"value": "@item().DestinationSchemaName",
+									"type": "Expression"
+								},
+								"cases": [
+									{
+										"value": "MetaDb",
+										"activities": [
+											{
+												"name": "Meta DB",
+												"type": "ExecutePipeline",
+												"dependsOn": [],
+												"policy": {
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"pipeline": {
+														"referenceName": "SCCUPROD_MetaDB_DynamicRetention",
+														"type": "PipelineReference"
+													},
+													"waitOnCompletion": false
+												}
+											}
+										]
+									},
+									{
+										"value": "LogDb",
+										"activities": [
+											{
+												"name": "Log DB",
+												"type": "ExecutePipeline",
+												"dependsOn": [],
+												"policy": {
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"pipeline": {
+														"referenceName": "SCCUPROD_LogDB_DynamicRetention",
+														"type": "PipelineReference"
+													},
+													"waitOnCompletion": false
+												}
+											}
+										]
+									},
+									{
+										"value": "BusinessData",
+										"activities": [
+											{
+												"name": "BusinessData",
+												"type": "ExecutePipeline",
+												"dependsOn": [],
+												"policy": {
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"pipeline": {
+														"referenceName": "SCCUPROD_BusinessData_DynamicRetention",
+														"type": "PipelineReference"
+													},
+													"waitOnCompletion": false
+												}
+											}
+										]
+									},
+									{
+										"value": "BBAlerts",
+										"activities": [
+											{
+												"name": "BBAlerts",
+												"type": "ExecutePipeline",
+												"dependsOn": [],
+												"policy": {
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"pipeline": {
+														"referenceName": "SCCUPROD_BBAlerts_DynamicRetention",
+														"type": "PipelineReference"
+													},
+													"waitOnCompletion": false
+												}
+											}
+										]
+									},
+									{
+										"value": "AdminLogDb",
+										"activities": [
+											{
+												"name": "AdminLogDb",
+												"type": "ExecutePipeline",
+												"dependsOn": [],
+												"policy": {
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"pipeline": {
+														"referenceName": "SCCUPROD_Admin_LogDB_DynamicRetention",
+														"type": "PipelineReference"
+													},
+													"waitOnCompletion": false
+												}
+											}
+										]
+									},
+									{
+										"value": "AdminMetaDb",
+										"activities": [
+											{
+												"name": "AdminMetaDb",
+												"type": "ExecutePipeline",
+												"dependsOn": [],
+												"policy": {
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"pipeline": {
+														"referenceName": "SCCUPROD_Admin_MetaDB_DynamicRetention",
+														"type": "PipelineReference"
+													},
+													"waitOnCompletion": false
+												}
+											}
+										]
+									},
+									{
+										"value": "AnonymousLogDb",
+										"activities": [
+											{
+												"name": "AnonymousLogDb",
+												"type": "ExecutePipeline",
+												"dependsOn": [],
+												"policy": {
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"pipeline": {
+														"referenceName": "SCCUPROD_Anonymous_LogDB_DynamicRetention",
+														"type": "PipelineReference"
+													},
+													"waitOnCompletion": false
+												}
+											}
+										]
+									},
+									{
+										"value": "AnonymousMetaDb",
+										"activities": [
+											{
+												"name": "AnonymousMetaDb",
+												"type": "ExecutePipeline",
+												"dependsOn": [],
+												"policy": {
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"pipeline": {
+														"referenceName": "SCCUPROD_Anonymous_MetaDB_DynamicRetention",
+														"type": "PipelineReference"
+													},
+													"waitOnCompletion": false
+												}
+											}
+										]
+									},
+									{
+										"value": "LogDBMI",
+										"activities": [
+											{
+												"name": "SCCUPROD_LogDBMI_DynamicRetention",
+												"type": "ExecutePipeline",
+												"dependsOn": [],
+												"policy": {
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"pipeline": {
+														"referenceName": "SCCUPROD_LogDBMI_DynamicRetention",
+														"type": "PipelineReference"
+													},
+													"waitOnCompletion": false
+												}
+											}
+										]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "BacPac Tables Daily",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "BacPac Tables Daily",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "DataRetention"
+		},
+		"annotations": []
+	}
+}

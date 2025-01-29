@@ -1,0 +1,90 @@
+{
+	"name": "00_DailyRetention_Main",
+	"properties": {
+		"description": "PROD_DailyRetention_Main",
+		"activities": [
+			{
+				"name": "If Retention Enabled",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "IsRetentionEnabled",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@greater(activity('IsRetentionEnabled').output.firstRow['RecordCount'],0)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "PROD_DynamicRetention_Main",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "PROD_DynamicRetention_Main",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						},
+						{
+							"name": "SCCUPROD_ActivityLogs_Main",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "SCCUPROD_ActivityLogs_Main",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": false
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "IsRetentionEnabled",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT count(1) as 'RecordCount' FROM [dbo].[DailyRetentionConfig] where PipelineRun=1",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "SCCUPROD_ArchiveSqlDataset",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataRetention"
+		},
+		"annotations": []
+	}
+}

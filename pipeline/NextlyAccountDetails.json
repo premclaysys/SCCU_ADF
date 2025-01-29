@@ -1,0 +1,836 @@
+{
+	"name": "NextlyAccountDetails",
+	"properties": {
+		"activities": [
+			{
+				"name": "NextlyAccountDetails_Staging_CopyData",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "NextlyAccountDetails_Staging Truncate",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "PROD/NextlyAccountDetails",
+							"wildcardFileName": {
+								"value": "@pipeline().parameters.FileName",
+								"type": "Expression"
+							},
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "AccountNumber",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AccountNumber",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "OpenDate",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "OpenDate",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountDateLastContact",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AccountDateLastContact",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CurrentAccountStatusCode",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CurrentAccountStatusCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CurrentAccountStatusDesc",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CurrentAccountStatusDesc",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountOwnershipCode",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AccountOwnershipCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountOwnershipDesc",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AccountOwnershipDesc",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MajorAccountTypeCode",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "MajorAccountTypeCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MinorAccountTypeCode",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "MinorAccountTypeCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MinorAccountTypeDescription",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "MinorAccountTypeDescription",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductFullName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ProductFullName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountNickName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AccountNickName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CurrentBalance",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CurrentBalance",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BalanceCategoryCodeEscrow",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "BalanceCategoryCodeEscrow",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CurrentBalanceEscrow",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CurrentBalanceEscrow",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BalanceCategoryCodeUnapplied",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "BalanceCategoryCodeUnapplied",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CurrentBalanceUnapplied",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CurrentBalanceUnapplied",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BalanceCategoryCodeLIP",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "BalanceCategoryCodeLIP",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CurrentLIPBalance",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CurrentLIPBalance",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "NextPaymentDueDate",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "NextPaymentDueDate",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CurrentDueDate",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CurrentDueDate",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LastPaymentDate",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LastPaymentDate",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LastPaymentAmount",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LastPaymentAmount",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LoanYTDInterestPaid",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LoanYTDInterestPaid",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "RegularPaymentAmount",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "RegularPaymentAmount",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LoanInterestRate",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LoanInterestRate",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LoanPriorYTDInterestPaid",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LoanPriorYTDInterestPaid",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PayoffBalance",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "PayoffBalance",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PayDownBalance",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "PayDownBalance",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PrincipalBalance",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "PrincipalBalance",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AmountToPayCurrent",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AmountToPayCurrent",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "TotalPerDiem",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "TotalPerDiem",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "TotalAmountCurrentlyDue",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "TotalAmountCurrentlyDue",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AmountPastDue",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AmountPastDue",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginalLoanAmount",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "OriginalLoanAmount",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LoanCurrentTerm",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LoanCurrentTerm",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LoanRemainingTerm",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LoanRemainingTerm",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "RemainingPayments",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "RemainingPayments",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PaymentCalculationPeriod",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "PaymentCalculationPeriod",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CreditLimitAmount",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CreditLimitAmount",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AvailableCredit",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AvailableCredit",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DepositInterestRate",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DepositInterestRate",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DepositPriorYTDInterestPaid",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DepositPriorYTDInterestPaid",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DepositYTDInterestPaid",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DepositYTDInterestPaid",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DepositLastInterestAmount",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DepositLastInterestAmount",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DepositLastInterestPostDate",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DepositLastInterestPostDate",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DepositCurrentTerm",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DepositCurrentTerm",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MaturityDate",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "MaturityDate",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "OwnerPersonNumber",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "OwnerPersonNumber",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "OwnerOrganizationNumber",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "OwnerOrganizationNumber",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountType",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AccountType",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MemberNumber",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "MemberNumber",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AgreementNumber",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AgreementNumber",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OfflinSource_NextlyAccountDetails",
+						"type": "DatasetReference",
+						"parameters": {
+							"NextlyAccountDetails": "@pipeline().parameters.FileName"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "OfflineDestination_NextlyAccountDetails",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "NextlyAccountDetails_Staging Truncate",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "SCCU_OfflineModedb_PROD_DTU",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "TRUNCATE TABLE StagingTable_AccountDetails"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			},
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "NextlyAccountDetails_Staging_CopyData",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[Spi_InsertIntoAccountDetails]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SCCU_OfflineModedb_PROD_DTU",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Copy data2",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Stored procedure1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "PROD/NextlyAccountDetails",
+							"wildcardFileName": {
+								"value": "@pipeline().parameters.FileName",
+								"type": "Expression"
+							},
+							"deleteFilesAfterCompletion": true
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Completed_NextlyAccountDetails_Source",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Completed_NextlyAccountDetails_Sink",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"FileName": {
+				"type": "string",
+				"defaultValue": "NextlyAccounts*.csv"
+			},
+			"FilePath": {
+				"type": "string",
+				"defaultValue": "offline-services/DEV/NextlyAccountDetails"
+			}
+		},
+		"folder": {
+			"name": "OfflineServices"
+		},
+		"annotations": []
+	}
+}

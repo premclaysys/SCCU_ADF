@@ -1,0 +1,185 @@
+{
+	"name": "SCCU_LoanDueAlerts_PROD",
+	"properties": {
+		"activities": [
+			{
+				"name": "Count_LoanDueAlerts",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 3,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlMISource",
+						"sqlReaderStoredProcedureName": "[dbo].[sps_LoanDueAlertSubscriptionToFile]",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "PROD_SQLDataSet",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Set_RowCount_LoanDueAlerts",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Count_LoanDueAlerts",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "RowCount_LoanDueAlerts",
+					"value": {
+						"value": "@length(activity('Count_LoanDueAlerts').output.value)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Check_RowCount_LoanDueAlerts",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Set_RowCount_LoanDueAlerts",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@greater(variables('RowCount_LoanDueAlerts'), 0)\n",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "LoanDueAlerts_Copy data",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 3,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlMISource",
+									"sqlReaderQuery": "EXEC sps_LoanDueAlertSubscriptionToFile",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "SubscriptionID",
+												"type": "Int32",
+												"physicalType": "int"
+											},
+											"sink": {
+												"name": "SubscriptionID",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "AccountID",
+												"type": "String",
+												"physicalType": "varchar"
+											},
+											"sink": {
+												"name": "AccountID",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "NumOfDaysBeforeDue",
+												"type": "Int32",
+												"physicalType": "int"
+											},
+											"sink": {
+												"name": "NumOfDaysBeforeDue",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "NumOfDaysAfterPastDue",
+												"type": "Int32",
+												"physicalType": "int"
+											},
+											"sink": {
+												"name": "NumOfDaysAfterPastDue",
+												"type": "String",
+												"physicalType": "String"
+											}
+										}
+									],
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "PROD_SQLDataSet",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "PROD_LoanDue_DataSet",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"RowCount_LoanDueAlerts": {
+				"type": "Integer"
+			}
+		},
+		"annotations": []
+	}
+}

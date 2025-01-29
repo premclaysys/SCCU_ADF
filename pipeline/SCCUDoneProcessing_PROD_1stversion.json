@@ -1,0 +1,144 @@
+{
+	"name": "SCCUDoneProcessing_PROD_1stversion",
+	"properties": {
+		"activities": [
+			{
+				"name": "BBAlerts_Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlMISource",
+						"sqlReaderStoredProcedureName": "[alert].[sps_ReferenceFileReport]",
+						"storedProcedureParameters": {
+							"FromDateTime": {
+								"type": "String",
+								"value": {
+									"value": "@formatDateTime(addMinutes(utcnow(), -5), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								}
+							},
+							"IncidentIds": {
+								"type": "String",
+								"value": "[102,104,105,106,107,108,109,110,60,15,9]"
+							},
+							"ToDateTime": {
+								"type": "String",
+								"value": {
+									"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								}
+							},
+							"Types": {
+								"type": "String",
+								"value": "[\"text\",\"email\"]"
+							}
+						},
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SubscriptionID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "SubscriptionID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Type",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "Type",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MessageContent",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "MessageContent",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PROD_BBAlertsDataset",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PROD_DoneProcessingDataSet",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"concurrency": 1,
+		"parameters": {
+			"FromDateTime": {
+				"type": "string",
+				"defaultValue": "@addminutes(utcnow(), -5)"
+			},
+			"ToDateTime": {
+				"type": "string",
+				"defaultValue": "@utcnow()"
+			}
+		},
+		"variables": {
+			"DateFormat": {
+				"type": "String"
+			},
+			"FromDateTime": {
+				"type": "String"
+			},
+			"SampleDate": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}

@@ -1,0 +1,31 @@
+{
+	"name": "BusinessData_Rebuild_ActivityLogs_Index",
+	"properties": {
+		"activities": [
+			{
+				"name": "Rebuild Index on ActivityLogs",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_RebuildIndex_ActivityLogs]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SCCU_BusinessDataPROD",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "DataRetention/Indexing"
+		},
+		"annotations": []
+	}
+}

@@ -1,0 +1,72 @@
+{
+	"name": "EmailAlerts",
+	"properties": {
+		"description": "Pipeline email notification on job completion",
+		"activities": [
+			{
+				"name": "Send Email for pipeline",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"url": {
+						"value": "@pipeline().globalParameters.global_sendmail_api_url",
+						"type": "Expression"
+					},
+					"connectVia": {
+						"referenceName": "AutoResolveIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"body": {
+						"DataFactoryName": "@{pipeline().parameters.DataFactoryName}",
+						"PipelineName": "@{pipeline().parameters.PipelineName}",
+						"Activity": "@{pipeline().parameters.Activity}",
+						"PipelineStatus": "@{pipeline().parameters.Status}",
+						"EmailTo": "@{pipeline().parameters.EmailTo}",
+						"Subject": "@{pipeline().parameters.Subject}",
+						"Importance": "@{pipeline().parameters.Importance}",
+						"Message": "@{pipeline().parameters.Message}"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"Activity": {
+				"type": "string"
+			},
+			"EmailTo": {
+				"type": "string"
+			},
+			"Subject": {
+				"type": "string"
+			},
+			"Message": {
+				"type": "string"
+			},
+			"Status": {
+				"type": "string"
+			},
+			"Importance": {
+				"type": "string"
+			},
+			"DataFactoryName": {
+				"type": "string"
+			},
+			"Pipelinename": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}

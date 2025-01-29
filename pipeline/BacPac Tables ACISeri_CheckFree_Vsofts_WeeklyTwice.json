@@ -1,0 +1,52 @@
+{
+	"name": "BacPac Tables ACISeri_CheckFree_Vsofts_WeeklyTwice",
+	"properties": {
+		"description": "sp_Bacpac_BackUp_ACISeri_CheckFree_Vsoft",
+		"activities": [
+			{
+				"name": "sp_Bacpac_BackUp_ACISeri_CheckFree_Vsoft",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_Bacpac_BackUp_ACISeri_CheckFree_Vsoft]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SCCU_Logdb_PROD_DTU",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_Bacpac_Delete_ACISeri_CheckFree_Vsoft",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_Bacpac_DeleteTable_ACISeri_CheckFree_Vsoft]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SCCU_Logdb_PROD_DTU",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "DataRetention/BacPac"
+		},
+		"annotations": []
+	}
+}

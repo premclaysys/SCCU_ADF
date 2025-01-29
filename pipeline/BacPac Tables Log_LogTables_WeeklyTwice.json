@@ -1,0 +1,52 @@
+{
+	"name": "BacPac Tables Log_LogTables_WeeklyTwice",
+	"properties": {
+		"description": "[dbo].[sp_Bacpac_BackUp_Log_LogTables_WeeklyTwice]",
+		"activities": [
+			{
+				"name": "sp_Bacpac_BackUp_Log_LogTables_WeeklyTwice",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_Bacpac_BackUp_Log_LogTables_WeeklyTwice]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SCCU_Logdb_PROD_DTU",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_Bacpac_Delete_Log_LogTables_WeeklyTwice",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_Bacpac_Delete_Log_LogTables_WeeklyTwice]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SCCU_Logdb_PROD_DTU",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "DataRetention/BacPac"
+		},
+		"annotations": []
+	}
+}
