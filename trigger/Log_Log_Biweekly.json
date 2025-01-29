@@ -1,0 +1,24 @@
+{
+	"name": "Log_Log_Biweekly",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "BacPac Tables Log_LogTables_WeeklyTwice",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 4,
+				"startTime": "2025-01-31T10:35:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

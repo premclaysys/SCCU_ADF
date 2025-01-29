@@ -1,0 +1,24 @@
+{
+	"name": "PROD_DataRetentionTrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "00_DailyRetention_Main",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2024-10-23T10:30:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

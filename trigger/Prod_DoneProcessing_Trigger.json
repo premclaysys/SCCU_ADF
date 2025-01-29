@@ -1,0 +1,24 @@
+{
+	"name": "Prod_DoneProcessing_Trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "SCCUDoneProcessing_PROD",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 5,
+				"startTime": "2024-08-03T01:00:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
