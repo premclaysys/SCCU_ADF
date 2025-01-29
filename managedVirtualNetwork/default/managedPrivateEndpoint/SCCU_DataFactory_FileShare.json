@@ -1,0 +1,7 @@
+{
+	"name": "SCCU_DataFactory_FileShare",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/a8cd236d-26bd-46eb-81fc-dea8aac0fe3c/resourceGroups/SCCU-EU-PROD-SRV-RG/providers/Microsoft.Storage/storageAccounts/sccudatafactorystorage",
+		"groupId": "file"
+	}
+}
